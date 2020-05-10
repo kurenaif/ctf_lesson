@@ -1,20 +1,3 @@
-def create_table():
-    a = []
-    for i in range(256):
-        k = i
-        for j in range(8):
-            if k & 1:
-                k ^= 0x1db710640
-            k >>= 1
-        a.append(k)
-    return a
- 
-def crc_update(buf, crc):
-    crc_table = create_table()
-    crc ^= 0xffffffff
-    for k in buf:
-        crc = (crc >> 8) ^ crc_table[(crc & 0xff) ^ k]
-    return crc ^ 0xffffffff
 
 def reverse(x:int, length:int) -> int:
     assert x.bit_length() <= length
@@ -28,7 +11,7 @@ def reverse(x:int, length:int) -> int:
     return res
 
 # https://www.slideshare.net/7shi/crc32#43
-def make_crc(buf):
+def make_crc_forward(buf):
     reversed_buf = 0
 
     # step 2: reverse bits position (e.g. [11110000, 10101010] => [00001111, 01010101])
@@ -59,6 +42,42 @@ def make_crc(buf):
 
     return crc
 
+def make_crc_reverse(buf):
+    buf_num = 0
+    buf_length = len(buf)
+    # len(buf)-1 => 0 まで 逆順に
+    for i in range(len(buf)-1, -1, -1):
+        buf_num <<= 8
+        buf_num += buf[i]
+
+    g = 0x1db710640
+    crc = 0xffffffff ^ buf_num
+
+    for i in range(buf_length * 8):
+        if crc & 1 == 1:
+            crc = crc ^ g
+        crc >>= 1
+
+    return crc ^ 0xffffffff
+
+def create_table():
+    table = []
+    for i in range(256):
+        crc = i
+        for j in range(8):
+            if crc & 1:
+                crc ^= 0x1db710640
+            crc >>= 1
+        table.append(crc)
+    return table
+ 
+def crc_table(buf, crc):
+    crc_table = create_table()
+    crc ^= 0xffffffff
+    for byte in buf:
+        crc = (crc >> 8) ^ crc_table[(crc & 0xff)] ^ crc_table[byte]
+    return crc ^ 0xffffffff
+
 
 file_in = open('./lKDTdJlQ.png', mode='rb')
 content = file_in.read()
@@ -78,7 +97,8 @@ while len(content) > 0:
     # crc32(chunk_type, data)
     content = content[length:]
     crc = int.from_bytes(content[:4], 'big')
-    print(bin(crc_update(chunk_type + data, 0)))
-    print("crc       : {}".format(bin(crc)))
-    print("crc calced: {}".format(bin(make_crc(chunk_type+data))))
+    print("crc        : {}".format(bin(crc)))
+    print("crc table  : {}".format(bin(crc_table(chunk_type + data, 0))))
+    # print("crc forward: {}".format(bin(make_crc_forward(chunk_type+data))))
+    print("crc reverse: {}".format(bin(make_crc_reverse(chunk_type+data))))
     content = content[4:]
