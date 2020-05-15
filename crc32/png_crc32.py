@@ -23,7 +23,7 @@ def make_crc_forward(buf):
     reversed_buf <<= 4*8
 
     # step 4: flip the first 4 bytes
-    reversed_buf ^= (0xffffffff << reversed_buf.bit_length() - 32)
+    reversed_buf ^= (0xffffffff << (len(buf)+4)*8-32)
 
     # step 5: crc32
     crc = reversed_buf
