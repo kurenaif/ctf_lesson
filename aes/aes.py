@@ -1,6 +1,8 @@
 import state
 import sbox
 
+# https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197.pdf
+
 def sub_bytes(st: state.State):
     res = []
     for c in range(4):

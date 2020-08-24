@@ -17,7 +17,7 @@ class GFPolynomial:
                 res += "x^{}".format(i)
         return res
     
-    def get_coeffs(self):
+    def get_coeffs(self) -> int:
         return self.coeffs
 
     def __init__(self, c: int):
@@ -36,7 +36,7 @@ class GFPolynomial:
         assert(self.coeffs < self.m)
 
     def __add__(self, rhs):
-        return self.coeffs ^ rhs.coeffs
+        return GFPolynomial(self.coeffs ^ rhs.coeffs)
 
     def __mul__(self, rhs):
         res = 0
