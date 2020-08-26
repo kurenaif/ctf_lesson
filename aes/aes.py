@@ -4,6 +4,7 @@ import sbox
 import gfpoly
 import gfcpoly
 import struct
+import sys
 from typing import List, Final
 
 Nb: Final[int]  = 4
@@ -154,6 +155,26 @@ def cipher(input_bytes: List[int], w: List[int], Nb: int, Nr: int) -> List[int]:
     st = add_round_key(st, w[Nr*Nb:(Nr+1)*Nb])
 
     return st.get_bytes()
+
+def encrypt(input_bytes: List[int], cipher_key: List[int]) -> List[int]:
+
+    # Figure 4. Key-Block-Round Combinations
+    if len(cipher_key) == 16: # AES-128
+        Nk = 4
+        Nr = 10
+    elif len(cipher_key) == 24: # AES-192
+        Nk = 6
+        Nr = 12
+        print("AES-192(Nk = 6) have not been not tested yet :( sorry", file=sys.stderr)
+    elif len(cipher_key) == 32: # AES-256
+        Nk = 8
+        Nr = 14
+        print("AES-256(Nk = 8) have not been not tested yet :( sorry", file=sys.stderr)
+    else:
+        raise ValueError("cipher_key byte length must be 16, 24, or 32")
+
+    w = key_expantion(cipher_key, Nk, Nb, Nr)
+    return bytearray(cipher(input_bytes, w, Nb, Nr))
 
 # # Appendix B
 # input_bytes = [0x32,0x43,0xf6,0xa8,0x88,0x5a,0x30,0x8d,0x31,0x31,0x98,0xa2,0xe0,0x37,0x07,0x34]
