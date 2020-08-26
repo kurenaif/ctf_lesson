@@ -4,7 +4,8 @@ class State:
     """3.4 The State"""
 
     def __init__(self, b: List[int]):
-        self.s = [0] * 16
+        self.s: List[int] = [0] * 16
+        assert(len(b) <= 16)
         l = min(16, len(b))
         for i in range(l):
             self.s[i] = b[i]
@@ -19,6 +20,9 @@ class State:
         :rtype: int
         """
         return self.s[r + 4*c]
+
+    def get_bytes(self) -> List[int]:
+        return self.s
 
     def set(self, r: int, c: int, value: int) -> None:
         self.s[r + 4*c] = value

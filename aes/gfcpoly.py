@@ -14,7 +14,7 @@ class GFCPolynomial:
             res += "{{{:02x}}}*x^{}".format(self.cs[i].get_coeffs(), i)
         return res
 
-    def get_cs(self) -> List[int]:
+    def get_cs(self) -> List[gfpoly.GFPolynomial]:
         return self.cs
     
     # cs[0] + cs[1] x + cs[2] x^2 + cs[3] x^3
