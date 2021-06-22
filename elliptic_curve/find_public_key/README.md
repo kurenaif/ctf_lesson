@@ -8,9 +8,6 @@ difficulty: basic
 
 ヒント: dの値が大きいので少し工夫して計算する必要があります。参考: https://www.youtube.com/watch?v=HKDyUELFdXs
 
-この問題はまだ正解が確認されていません。
-もし解けた方がいれば連絡いただければ嬉しいです。
-
 ```
 m = hashlib.sha256()
 m.update(long_to_bytes( dGのx座標 ))

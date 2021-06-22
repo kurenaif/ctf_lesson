@@ -5,8 +5,8 @@
 以下難易度表です。
 
 ```
-basic_ecdsa: basic
 find_public_key: basic
+basic_ecdsa: basic
 reverse_the_point: easy
 predictable_ecdsa: easy
 find_y: normal
