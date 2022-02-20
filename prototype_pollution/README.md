@@ -3,6 +3,7 @@
 https://knqyf263.hatenablog.com/entry/2020/08/11/050342
 https://qiita.com/howdy39/items/35729490b024ca295d6c
 https://developer.mozilla.org/ja/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+https://slides.com/securitymb/prototype-pollution-in-kibana/#/47/0/0
 
 # examples
 
@@ -54,3 +55,5 @@ curl -H 'Content-Type: application/json' -XPUT http://localhost:9200/shakespeare
 データを流し込んだら動いた
 
 バージョンは6.5.4を使う
+
+サーバーサイドでいい感じだし紹介するのはkibanaにしよう
