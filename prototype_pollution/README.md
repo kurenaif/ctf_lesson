@@ -1,5 +1,6 @@
 # blogs
 
+https://portswigger.net/daily-swig/prototype-pollution-the-dangerous-and-underrated-vulnerability-impacting-javascript-applications
 https://knqyf263.hatenablog.com/entry/2020/08/11/050342
 https://knqyf263.hatenablog.com/entry/2020/08/09/234544
 https://qiita.com/howdy39/items/35729490b024ca295d6c
