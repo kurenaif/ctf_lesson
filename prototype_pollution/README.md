@@ -1,5 +1,6 @@
 # blogs
 
+https://github.com/HoLyVieR/prototype-pollution-nsec18/tree/master/paper
 https://portswigger.net/daily-swig/prototype-pollution-the-dangerous-and-underrated-vulnerability-impacting-javascript-applications
 https://knqyf263.hatenablog.com/entry/2020/08/11/050342
 https://knqyf263.hatenablog.com/entry/2020/08/09/234544
