@@ -7,6 +7,7 @@ https://qiita.com/howdy39/items/35729490b024ca295d6c
 https://developer.mozilla.org/ja/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 https://slides.com/securitymb/prototype-pollution-in-kibana/#/47/0/0
 https://book.hacktricks.xyz/pentesting-web/deserialization/nodejs-proto-prototype-pollution
+https://techblog.securesky-tech.com/entry/2018/10/31/
 
 # examples
 
