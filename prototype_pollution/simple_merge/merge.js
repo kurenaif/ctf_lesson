@@ -7,7 +7,6 @@ function isObject(obj) {
 }
 
 
-// 確実とは言い切れないけど多分 __proto__ の除去で改善可能 (functionが入るとconstructor.prototypeに対して脆弱)
 function merge(a, b) {
 	for (let key in b) {
 		if (isObject(a[key]) && isObject(b[key])) { 
@@ -19,8 +18,9 @@ function merge(a, b) {
 	return a; 
 }
 
-merge({}, JSON.parse('{"__proto__":{"polluted": 1}}'))
-console.log({}.polluted)
+merge({c: 2}, JSON.parse('{"__proto__":{"polluted": 1}}'))
+// let obj = merge({lkey: 2}, JSON.parse('{"rkey":{"rkeyrkey": 1}}'))
 
-merge({}, JSON.parse('{"constructor":{"prototype":{"polluted2": 1}}}'))
-console.log({}.polluted2)
+console.log({}.polluted)
+a = ""
+console.log(a.polluted)

@@ -19,7 +19,7 @@ function setValue(obj, key, value) {
   }
 }
 
-setValue({}, "__proto__.polluted", 1);
-console.log({}.polluted)
-setValue({}, "constructor.prototype.polluted2", 2);
-console.log({}.polluted2)
+setValue({}, "__proto__.polluted", "polluted");
+
+let a = 3
+console.log(a.polluted)

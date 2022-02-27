@@ -8,6 +8,10 @@ class Human {
         console.log(this.name + "'s physical Attack")
         this.hp -= 1;
     }
+
+	// toString() {
+	// 	console.log(this.name + "'s hp is " + this.hp)
+	// }
 }
 
 class Mage extends Human {
@@ -22,36 +26,11 @@ class Mage extends Human {
     }
 }
 
-// Mage.prototype.magicalAttack = () => {
-// 	console.log("new MagicalAttack")
-// }
-
-// Human.prototype.physicalAttack = () => {
-// 	console.log("new PhysicalAttack")
-// }
-
 let mage = new Mage("kurenaif", 10, 100)
-mage.__proto__.__proto__.__proto__.physicalAttack = () => {
-	console.log("new physicalAttack")
-}
-
-mage.physicalAttack()
-mage.magicalAttack()
-
 let mage2 = new Mage("kurenaif2", 10, 100)
-mage2.physicalAttack()
-mage2.magicalAttack()
-
 let human = new Human("human", 10)
-human.physicalAttack()
-
-let hoge = {}
-hoge.physicalAttack()
-
-// ↓ mage
-// ↓ __proto__ 
-// ↓ Mage.prototype
-// ↓ __proto__ 
-// ↓ Human.prototype
-// ↓ __proto__ 
-// ↓ Object.prototype
+mage.toString()
+// Object.prototype.toString = () => {
+// 	console.log("polluted")
+// }
+// mage.toString();
