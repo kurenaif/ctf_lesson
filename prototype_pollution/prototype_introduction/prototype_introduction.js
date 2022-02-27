@@ -31,6 +31,10 @@ class Mage extends Human {
 // }
 
 let mage = new Mage("kurenaif", 10, 100)
+mage.__proto__.__proto__.__proto__.physicalAttack = () => {
+	console.log("new physicalAttack")
+}
+
 mage.physicalAttack()
 mage.magicalAttack()
 
@@ -41,7 +45,13 @@ mage2.magicalAttack()
 let human = new Human("human", 10)
 human.physicalAttack()
 
-// ↓ mage.physicalAttack
-// ↓ Mage.prototype.physicalAttack
-// ↓ Human.prototype.physicalAttack
-// ↓ Object.prototype.physicalAttack
+let hoge = {}
+hoge.physicalAttack()
+
+// ↓ mage
+// ↓ __proto__ 
+// ↓ Mage.prototype
+// ↓ __proto__ 
+// ↓ Human.prototype
+// ↓ __proto__ 
+// ↓ Object.prototype
