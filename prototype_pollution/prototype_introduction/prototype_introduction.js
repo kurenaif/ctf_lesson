@@ -78,3 +78,5 @@ console.log(mage.toString())
 
 let obj = {}
 obj.toString(); // 関係ないオブジェクトもこれで汚染
+
+console.log(mage.prototype)
