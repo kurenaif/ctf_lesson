@@ -17,7 +17,7 @@ function revert_urlsafe($s){
 	return str_replace(array('_','-'), array('+', '/'), $s);
 }
 
-$plaintext = "message to be encrypted";
+$plaintext = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 $cipher = "aes-128-gcm";
 $key = "0000000000000000";
 if (in_array($cipher, openssl_get_cipher_methods()))
