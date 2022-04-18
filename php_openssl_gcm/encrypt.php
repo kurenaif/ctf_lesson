@@ -9,6 +9,14 @@ function base64_urlsafe_decode($val) {
 	return base64_decode($val);
 }
 
+function replace_urlsafe($s){
+	return str_replace(array('+','/'), array('_', '-'), $s);
+}
+
+function revert_urlsafe($s){
+	return str_replace(array('_','-'), array('+', '/'), $s);
+}
+
 $plaintext = "message to be encrypted";
 $cipher = "aes-128-gcm";
 $key = "0000000000000000";
@@ -17,8 +25,8 @@ if (in_array($cipher, openssl_get_cipher_methods()))
     $ivlen = openssl_cipher_iv_length($cipher);
     $iv = openssl_random_pseudo_bytes($ivlen);
     $ciphertext = openssl_encrypt($plaintext, $cipher, $key, $options=0, $iv, $tag);
+	$ciphertext = replace_urlsafe($ciphertext);
 	
-	$ciphertext = base64_urlsafe_encode($ciphertext);
 	$tag = base64_urlsafe_encode($tag);
 	$iv =base64_urlsafe_encode($iv);
 
@@ -26,12 +34,5 @@ if (in_array($cipher, openssl_get_cipher_methods()))
 	echo "ciphertext=".$ciphertext."&";
 	echo "tag=".$tag."&";
 	echo "iv=".$iv."";
-
-	$ciphertext = base64_urlsafe_decode($ciphertext);
-	$tag = base64_urlsafe_decode($tag);
-	$iv = base64_urlsafe_decode($iv);
-
-	$original_plaintext = openssl_decrypt($ciphertext, $cipher, $key, $options=0, $iv, $tag);
-	// echo $original_plaintext."\n";
 }
 ?>
