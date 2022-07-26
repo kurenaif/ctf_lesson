@@ -1,0 +1,12 @@
+<style type="text/css">
+.table{
+	display: table;
+}
+.table_row{
+	display: table-row;
+}
+.table_cell{
+	display: table-cell;
+	vertical-align: top;
+}
+</style>
