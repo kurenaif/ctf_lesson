@@ -46,6 +46,7 @@ for i in range(N):
     mat[i] = vector(ZZ, row)
 
 
+print(mat)
 res = mat * ans
 print(res)
 
