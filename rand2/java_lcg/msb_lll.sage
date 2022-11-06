@@ -1,3 +1,4 @@
+import random
 # https://crypto.stackexchange.com/questions/37836/problem-with-lll-reduction-on-truncated-lcg-schemes
 
 class LCG:
@@ -8,7 +9,7 @@ class LCG:
     seed = 0
 
     def __init__(self):
-        self.seed = 100
+        self.seed = random.randint(0, self.mask)
 
     def next(self):
         self.seed = (self.seed * self.multiplier + self.addend) & self.mask
@@ -21,7 +22,7 @@ ys = []
 
 N = 4
 MASK_SIZE = 48
-HIDE_SIZE = 8
+HIDE_SIZE = 32
 for i in range(N):
     temp = lcg.next()
     anses.append(temp)
