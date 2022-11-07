@@ -48,7 +48,7 @@ for i in range(N):
     if i == _sage_const_0 :
         row[_sage_const_0 ] = M
     else:
-        row[_sage_const_0 ] = (a ** (i))
+        row[_sage_const_0 ] = int((a ** (i)) % M)
     mat[i] = vector(ZZ, row)
 
 
@@ -69,7 +69,11 @@ print(Z + ys)
 print(ans)
 
 print("--------------------------------------------------")
-print(mat*ans)
-memo = vector([ round(RR(w) / M)*M for w in W1 ])
-print(memo)
+print(mat*Z)
+temp = original_mat*Z
+print(f"Ae={temp[0]}")
+print(f"Ae={temp[1]}")
+print(f"Ae={temp[2]}")
+print(f"Ae={temp[3]}")
+print(f" M={M}")
 

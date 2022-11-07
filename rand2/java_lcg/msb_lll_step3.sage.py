@@ -9,6 +9,7 @@ import sys
 import ctypes
 
 # https://crypto.stackexchange.com/questions/37836/problem-with-lll-reduction-on-truncated-lcg-schemes
+# usage: sage msb_lll_step3.sage 0 11 4 7 12 3 3 8 4 7 8 0 9 2 9 7 2 8 5 8
 
 class LCG:
     multiplier = _sage_const_0x5DEECE66D 
