@@ -50,6 +50,7 @@ print(mat)
 res = mat * ans
 print(res)
 
+original_mat = mat
 mat = mat.LLL()
 res = mat * ans 
 
@@ -57,5 +58,11 @@ W1 = mat * ys
 W2 = vector([ round(RR(w) / M) * M - w for w in W1 ])
 
 Z = mat.solve_right(W2)
+print("--------------------------------------------------")
 print(Z + ys)
 print(ans)
+
+print("--------------------------------------------------")
+print(mat*ans)
+memo = vector([ round(RR(w) / M)*M for w in W1 ])
+print(memo)
