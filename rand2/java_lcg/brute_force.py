@@ -1,4 +1,6 @@
 import random
+import sys
+import ctypes
 # https://crypto.stackexchange.com/questions/37836/problem-with-lll-reduction-on-truncated-lcg-schemes
 
 multiplier = 0x5DEECE66D
@@ -36,17 +38,13 @@ def predict_seed(nums, bits):
 lcg = LCG(0)
 nums = []
 
-N = 10
-for i in range(N):
-    nums.append(lcg.next(32))
+args = sys.argv
 
-lcg_predict = LCG(0)
-lcg_predict.set_seed(predict_seed(nums[:2], 32))
+lcg = LCG(0)
+lcg.set_seed(predict_seed([int(args[1]), int(args[2])], 32))
+lcg.next(32) # 一回空打ち
 
-predicts = []
-N = 10
-for i in range(N):
-    print(predicts.append(lcg_predict.next(32)))
-
-print(nums[1:])
-print(predicts)
+output = []
+for i in range(50):
+    output.append(ctypes.c_int32(lcg.next(32)).value)
+print("next:", output)
