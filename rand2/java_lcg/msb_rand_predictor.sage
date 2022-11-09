@@ -21,47 +21,42 @@ class LCG:
         self.seed = (self.seed * self.multiplier + self.addend) & self.mask
         return self.seed >> (48-bits)
 
-def main(bits, original):
-    N = len(original)-1
+def main(bits, y):
+    N = len(y)-1
 
-    for i in range(len(original)):
-        original[i] = original[i] << (48-bits)
+    for i in range(len(y)):
+        y[i] = y[i] << (48-bits)
 
-    lcg = LCG(0)
-
-    ys = []
+    ydashes = []
     for i in range(N):
-        ys.append((original[i+1] - original[i]) % (1 << 48))
+        ydashes.append((y[i+1] - y[i]) % (1 << 48))
 
     a = 0x5DEECE66D
     c = 0xB
-
     M = (1 << 48)
 
-    ys = vector(ZZ, ys)
-    mat = -matrix.identity(N)
+    ydashes = vector(ZZ, ydashes)
+    A = -matrix.identity(N)
 
     for i in range(N):
-        row = list(mat[i])
+        row = list(A[i])
         if i == 0:
             row[0] = M
         else:
             row[0] = (a ** (i))
-        mat[i] = vector(ZZ, row)
+        A[i] = vector(ZZ, row)
 
 
-    mat = mat.LLL()
+    A = A.LLL()
 
-    W1 = mat * ys
-    W2 = vector([ round(RR(w) / M) * M - w for w in W1 ])
+    k = vector(ZZ, [round(RR(w) / M) for w in (A * ydashes)])
+    W2 = k * M - A*ydashes
 
-    Z = mat.solve_right(W2)
-    zs = Z + ys
-
-    z = int(zs[0])
+    edash = A.solve_right(W2)
+    xdashes = edash + ydashes
 
     var('x')
-    cands = solve_mod((a-1)*x == (z-c), M)
+    cands = solve_mod((a-1)*x == (int(xdashes[0])-c), M)
 
     for cand in cands:
         cand = cand[0]
@@ -70,20 +65,23 @@ def main(bits, original):
         check = []
         for i in range(N):
             check.append(lcg.next(bits) << (48-bits))
-        if check == original[1:]:
+        if check == y[1:]:
             return lcg
 
-bits = 4
-lcg = LCG(0)
-original = []
+bits = 4 # top 4 bits
 
 args = sys.argv
+if len(args) < 21:
+    print(f"usage: {args[0]} rand0 rand1 rand2 ... rand19")
+    print(f"example: {args[0]} 1 13 1 14 5 13 3 12 12 8 1 2 7 0 6 15 14 11 14 6")
+    sys.exit(1)
+
+y = []
 for i in range(20):
-    original.append(int(args[i+1]))
+    y.append(int(args[i+1]))
 
-lcg2 = main(bits, original)
-
+lcg = main(bits, y)
 output = []
 for i in range(50):
-    output.append(ctypes.c_int32(lcg2.next(32)).value)
+    output.append(ctypes.c_int32(lcg.next(32)).value)
 print("next:", output)
