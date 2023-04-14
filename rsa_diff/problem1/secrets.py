@@ -1,0 +1,1 @@
+FLAG = b"kurenaifCTF{this_is_first_step_of_diff}"
